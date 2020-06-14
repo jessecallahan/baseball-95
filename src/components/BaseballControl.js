@@ -1,6 +1,6 @@
 import React from "react";
 import ScoreBoard from "./ScoreBoard";
-import GameCard from "./GameCard"
+import PlayList from "./PlayList"
 import Field from "./Field"
 
 
@@ -21,7 +21,7 @@ class BaseballControl extends React.Component {
         inning: 1,
         bottomOfInning: false
       },
-      playType: "Play Ball"
+      plays: ["play ball"]
     };
     this.gameDice = this.gameDice.bind(this)
   }
@@ -32,10 +32,10 @@ class BaseballControl extends React.Component {
 
     //game dice
     const outcome = Math.ceil(Math.random() * 8)
-    var hitOutcome = Math.ceil(Math.random() * 6)
+    const hitOutcome = Math.ceil(Math.random() * 6)
 
     //game-over logic
-    if (game.bottomOfInning === true && game.inning >= 9 && game.outs === 3 && game.score !== game.cpuScore) { this.state.playType = "extra innings" } else if (game.bottomOfInning === true && game.inning >= 9 && game.outs === 3) { this.state.playType = "game over" }
+    if (game.bottomOfInning === true && game.inning === 9 && game.outs === 3) { console.log("game over") }
 
 
 
@@ -49,9 +49,8 @@ class BaseballControl extends React.Component {
     switch (outcome) {
       //outs
       case 1:
-        this.state.playType = "groundout"
       case 2:
-        this.state.playType = "flyout"
+        this.state.plays.push("out")
         game.outs++;
         game.strikes = 0;
         game.balls = 0;
@@ -60,6 +59,7 @@ class BaseballControl extends React.Component {
       //strike
       case 3:
       case 4:
+        this.state.plays.push("strike")
         game.strikes++
         if (game.strikes === 3) {
           game.outs++;
@@ -72,6 +72,7 @@ class BaseballControl extends React.Component {
       case 5:
       case 6:
       case 7:
+        this.state.plays.push("ball")
         game.balls++
         if (game.balls === 4) {
           if (game.first === true && game.second === true && game.third === true) {
@@ -94,6 +95,7 @@ class BaseballControl extends React.Component {
           //single
           case 1:
           case 2:
+            this.state.plays.push("single")
             if (game.first === true && game.second === true && game.third === true) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 2 } else { game.score = game.score + 2 } game.first = true; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
             else if (game.second === true && game.third === true && game.first === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 2 } else { game.score = game.score + 2 } game.first = true; game.second = false; game.third = false; game.balls = 0; game.strikes = 0 }
             else if (game.first === true && game.second === true && game.third === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1 } else { game.score = game.score + 1 } game.first = true; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
@@ -108,6 +110,7 @@ class BaseballControl extends React.Component {
           //double
           case 3:
           case 4:
+            this.state.plays.push("double")
             if (game.first === true && game.second === true && game.third === true) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 2 } else { game.score = game.score + 2 } game.first = false; game.second = true; game.third = true; game.balls = 0; game.strikes = 0 }
             else if (game.second === true && game.third === true && game.first === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 2 } else { game.score = game.score + 2 } game.first = false; game.second = true; game.third = false; game.balls = 0; game.strikes = 0 }
             else if (game.first === true && game.second === true && game.third === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1 } else { game.score = game.score + 1 } game.first = false; game.second = true; game.third = true; game.balls = 0; game.strikes = 0 }
@@ -121,6 +124,7 @@ class BaseballControl extends React.Component {
 
           //triple
           case 5:
+            this.state.plays.push("triple")
             if (game.first === true && game.second === true && game.third === true) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 3 } else { game.score = game.score + 3 } game.first = false; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
             else if (game.second === true && game.third === true && game.first === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 2 } else { game.score = game.score + 2 } game.first = false; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
             else if (game.first === true && game.second === true && game.third === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 2 } else { game.score = game.score + 2 } game.first = false; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
@@ -134,6 +138,7 @@ class BaseballControl extends React.Component {
 
           //homerun
           case 6:
+            this.state.plays.push("HOMERUN")
             if (game.first === true && game.second === true && game.third === true) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 4 } else { game.score = game.score + 4 } game.first = false; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
             else if (game.second === true && game.third === true && game.first === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 3 } else { game.score = game.score + 3 } game.first = false; game.second = false; game.third = false; game.balls = 0; game.strikes = 0 }
             else if (game.first === true && game.second === true && game.third === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 3 } else { game.score = game.score + 3 } game.first = false; game.second = false; game.third = false; game.balls = 0; game.strikes = 0 }
@@ -166,32 +171,14 @@ class BaseballControl extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <button onClick={this.gameDice}>
-          Pitch the Ball!
-</button>
-        <p>outs:{this.state.game.outs + " "}
-          strikes:{this.state.game.strikes + " "}
-          balls:{this.state.game.balls + " "}
-          score:{this.state.game.score + " "}
-          Computer Score:{this.state.game.cpuScore + " "}
-          inning:{this.state.game.inning + " "}
-          bottomOfInning:{this.state.game.bottomOfInning.toString() + " "} </p>
-        <p>
-          runner on 1st:{this.state.game.first.toString() + " "}</p>
-        <p>
-          runner on 2nd:{this.state.game.second.toString() + " "}
-        </p>
-        <p>
-          runner on 3rd:{this.state.game.third.toString() + " "}
-        </p>
-
-        {this.state.playType}
-        <ScoreBoard></ScoreBoard>
-        <GameCard>
-
-        </GameCard>
-        <Field></Field>
-      </React.Fragment>
+        <div class="row">
+          <div class="column">
+            <button onClick={this.gameDice}>Pitch the Ball!</button>
+            <ScoreBoard game={this.state.game} />
+            <Field game={this.state.game}></Field></div>
+          <div class="column"> <PlayList plays={this.state.plays}></PlayList></div>
+        </div>
+      </React.Fragment >
     );
   }
 

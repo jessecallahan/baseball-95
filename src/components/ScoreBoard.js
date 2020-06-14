@@ -1,14 +1,22 @@
-import React, { Component } from 'react'
+import React from "react";
 
-export class ScoreBoard extends Component {
-  render() {
-    return (
-      <div>
+function ScoreBoard(props) {
+  const { game } = props;
 
-      </div>
-    )
-  }
+
+  return (
+    <React.Fragment>
+      <p>outs:{game.outs + " "}
+        strikes:{game.strikes + " "}
+        balls:{game.balls + " "}
+        score:{game.score + " "}
+        Computer Score:{game.cpuScore + " "}
+        inning:{game.inning + " "}
+        bottomOfInning:{game.bottomOfInning.toString() + " "} </p>
+
+    </React.Fragment>
+  );
 }
 
-export default ScoreBoard
 
+export default ScoreBoard;
