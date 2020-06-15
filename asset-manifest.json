@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/baseball-95/static/css/main.a94af813.chunk.css",
+    "main.js": "/baseball-95/static/js/main.005d0f36.chunk.js",
+    "main.js.map": "/baseball-95/static/js/main.005d0f36.chunk.js.map",
+    "runtime-main.js": "/baseball-95/static/js/runtime-main.6973e35b.js",
+    "runtime-main.js.map": "/baseball-95/static/js/runtime-main.6973e35b.js.map",
+    "static/js/2.96f2d434.chunk.js": "/baseball-95/static/js/2.96f2d434.chunk.js",
+    "static/js/2.96f2d434.chunk.js.map": "/baseball-95/static/js/2.96f2d434.chunk.js.map",
+    "index.html": "/baseball-95/index.html",
+    "precache-manifest.1ae56226e8c317b555bf3779bd380939.js": "/baseball-95/precache-manifest.1ae56226e8c317b555bf3779bd380939.js",
+    "service-worker.js": "/baseball-95/service-worker.js",
+    "static/css/main.a94af813.chunk.css.map": "/baseball-95/static/css/main.a94af813.chunk.css.map",
+    "static/js/2.96f2d434.chunk.js.LICENSE.txt": "/baseball-95/static/js/2.96f2d434.chunk.js.LICENSE.txt",
+    "static/media/baseball_diamond_solid_page.jpg": "/baseball-95/static/media/baseball_diamond_solid_page.3fcc313a.jpg",
+    "static/media/home1.jpg": "/baseball-95/static/media/home1.94ef386b.jpg",
+    "static/media/home12.jpg": "/baseball-95/static/media/home12.55bcf537.jpg",
+    "static/media/home123.jpg": "/baseball-95/static/media/home123.7c2390ef.jpg",
+    "static/media/App.css": "/baseball-95/static/media/scoreboard.3bf213e8.ttf"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6973e35b.js",
+    "static/js/2.96f2d434.chunk.js",
+    "static/css/main.a94af813.chunk.css",
+    "static/js/main.005d0f36.chunk.js"
+  ]
+}
