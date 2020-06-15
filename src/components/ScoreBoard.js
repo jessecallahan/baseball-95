@@ -6,18 +6,23 @@ function ScoreBoard(props) {
 
   return (
     <React.Fragment>
-      <p>outs:{game.outs + " "}
-        strikes:{game.strikes + " "}
-        balls:{game.balls + " "}
+      <p>
+        SCORE:{game.score + " "}
+        CPU_SCORE:{game.cpuScore + " "}
       </p>
       <p>
-        score:{game.score + " "}
-        Computer Score:{game.cpuScore + " "}
+        STRIKES:{game.strikes + " "}
+        BALLS:{game.balls + " "}
+        OUTS:{game.outs + " "}
       </p>
       <p>
-        inning:{game.inning + " "}
-        bottomOfInning:{game.bottomOfInning.toString() + " "} </p>
-
+        INNING:{game.inning + " "}
+        BOTTOMOFINNING:{game.bottomOfInning.toString() + " "} </p>
+      <p>
+        1ST:{game.first.toString() + " "}
+        2ND:{game.second.toString() + " "}
+        3RD:{game.third.toString() + " "}
+      </p>
     </React.Fragment>
   );
 }

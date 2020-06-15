@@ -36,21 +36,22 @@ class BaseballControl extends React.Component {
     const hitOutcome = Math.ceil(Math.random() * 6)
 
     //game-over logic
-    if (game.bottomOfInning === true && game.inning === 9 && game.outs === 3) { this.state.plays.push({ name: "game over. You win! Cpu: " + game.cpuScore + " Player1: " + game.score, color: "yellow" }) }
+    if (game.bottomOfInning === true && game.inning === 9 && game.outs === 3) { this.state.plays.push({ name: "game over. You win!", color: "yellow" }, { name: "Cpu: " + game.cpuScore + " Player1: " + game.score, color: "yellow" }) }
 
 
 
     //change inning logic
     if (game.outs === 3) {
-      if (game.bottomOfInning === false) { game.bottomOfInning = true; game.outs = 0; this.state.plays.push({ name: "top of inning number " + game.inning + " ends. Cpu: " + game.cpuScore + " Player1: " + game.score, color: "yellow" }) }
+      if (game.bottomOfInning === false) { game.bottomOfInning = true; game.outs = 0; game.first = false; game.second = false; game.third = false; this.state.plays.push({ name: "top of inning number " + game.inning + " ends.", color: "yellow" }, { name: "Cpu: " + game.cpuScore + " Player1: " + game.score, color: "yellow" }) }
       else {
-        game.bottomOfInning = false; game.inning = game.inning + 1; game.outs = 0; this.state.plays.push({ name: "bottom of inning number " + (game.inning - 1) + " ends. Player1: " + game.score + " Cpu: " + game.cpuScore, color: "yellow" })
+        game.bottomOfInning = false; game.inning = game.inning + 1; game.first = false; game.second = false; game.third = false; game.outs = 0; this.state.plays.push({ name: "bottom of inning number " + (game.inning - 1) + " ends.", color: "yellow" }, { name: "Cpu: " + game.cpuScore + " Player1: " + game.score, color: "yellow" })
       }
     }
     switch (outcome) {
       //outs
       case 1:
         this.state.plays.push({ name: "flyout", color: "red" })
+      // eslint-disable-next-line
       case 2:
         this.state.plays.push({ name: "groundout", color: "red" })
         game.outs++;
@@ -61,6 +62,7 @@ class BaseballControl extends React.Component {
       //strike
       case 3:
       case 4:
+      case 5:
         this.state.plays.push({ name: "strike", color: "red" })
         game.strikes++
         if (game.strikes === 3) {
@@ -72,7 +74,6 @@ class BaseballControl extends React.Component {
         break;
 
       //ball
-      case 5:
       case 6:
       case 7:
         this.state.plays.push({ name: "ball", color: "yellow" })
@@ -180,7 +181,7 @@ class BaseballControl extends React.Component {
             <button onClick={this.gameDice}>Pitch the Ball!</button>
             <ScoreBoard game={this.state.game} />
             <Field game={this.state.game}></Field></div>
-          <div class="column"><PlayList plays={this.state.plays}></PlayList>
+          <div class="scoreboard"><PlayList plays={this.state.plays}></PlayList>
           </div></div>
       </React.Fragment >
     );
