@@ -1,4 +1,5 @@
 import React from "react";
+import Field from "./Field"
 
 function ScoreBoard(props) {
   const { game } = props;
@@ -17,13 +18,18 @@ function ScoreBoard(props) {
       </p>
       <p>
         INNING:{game.inning + " "}
-        BOTTOMOFINNING:{game.bottomOfInning.toString() + " "} </p>
+      </p>
       <p>
+        BOTTOMOFINNING:{game.bottomOfInning.toString() + " "}
+      </p> <p>
         1ST:{game.first.toString() + " "}
         2ND:{game.second.toString() + " "}
         3RD:{game.third.toString() + " "}
       </p>
-    </React.Fragment>
+      <p>
+        <Field game={game} />
+      </p>
+    </React.Fragment >
   );
 }
 

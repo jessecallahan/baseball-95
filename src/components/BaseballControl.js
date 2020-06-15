@@ -1,7 +1,7 @@
 import React from "react";
 import ScoreBoard from "./ScoreBoard";
 import PlayList from "./PlayList"
-import Field from "./Field"
+
 
 
 class BaseballControl extends React.Component {
@@ -176,13 +176,15 @@ class BaseballControl extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div class="row">
-          <div class="column">
-            <button onClick={this.gameDice}>Pitch the Ball!</button>
-            <ScoreBoard game={this.state.game} />
-            <Field game={this.state.game}></Field></div>
-          <div class="scoreboard"><PlayList plays={this.state.plays}></PlayList>
-          </div></div>
+        <div class="left-side">
+          <div><button onClick={this.gameDice}>Pitch the Ball!</button>
+            <button onClick={this.gameDice}>Curveball</button>
+            <button onClick={this.gameDice}>Fastball</button></div>
+          <ScoreBoard game={this.state.game} /></div>
+        <div class="right-side">
+          <PlayList plays={this.state.plays} />
+        </div>
+
       </React.Fragment >
     );
   }
