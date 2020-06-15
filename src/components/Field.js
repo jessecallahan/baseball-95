@@ -1,4 +1,5 @@
 import React from "react";
+import FieldPic from "../assets/baseball_diamond_solid_page.jpg"
 
 function Field(props) {
   const { game } = props;
@@ -7,13 +8,12 @@ function Field(props) {
   return (
     <React.Fragment>
       <p>
-        runner on 1st:{game.first.toString() + " "}</p>
-      <p>
-        runner on 2nd:{game.second.toString() + " "}
+        1st:{game.first.toString() + " "}
+        2nd:{game.second.toString() + " "}
+        3rd:{game.third.toString() + " "}
       </p>
-      <p>
-        runner on 3rd:{game.third.toString() + " "}
-      </p>
+      <img width="600" height="400" alt="No one on Field" src={FieldPic}></img>
+
     </React.Fragment>
   );
 }

@@ -8,12 +8,14 @@ function PlayList(props) {
   console.log(props.plays)
   const listItems = plays.map((plays) =>
     // Correct! Key should be specified inside the array.
-    <ListItem key={plays} value={plays} />
+    <ListItem key={plays} value={plays.name} color={plays.color} />
   );
   return (
+
     <ul className="no-bullets">
-      <li>{listItems}</li>
-    </ul>
+      <li> {listItems}</li>
+    </ul >
+
   );
 }
 

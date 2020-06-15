@@ -9,8 +9,12 @@ function ScoreBoard(props) {
       <p>outs:{game.outs + " "}
         strikes:{game.strikes + " "}
         balls:{game.balls + " "}
+      </p>
+      <p>
         score:{game.score + " "}
         Computer Score:{game.cpuScore + " "}
+      </p>
+      <p>
         inning:{game.inning + " "}
         bottomOfInning:{game.bottomOfInning.toString() + " "} </p>
 

@@ -2,7 +2,12 @@
   text-align: center;
 }
 body {
-  font-family: 'MyFont';
+  font-family: 'FONT';
+}
+
+p {
+  font-size: 25px;
+  line-height : 3px;
 }
 .App-header {
   background-color: #282c34;
@@ -15,13 +20,24 @@ body {
 }
 
 .column {
+  background-color: black;
+   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
   float: left;
   width: 50%;
+  color: white;
 }
 
 /* Clear floats after the columns */
 .row:after {
-  content: "";
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: left;
+  font-size: calc(10px + 2vmin);
   display: table;
   clear: both;
 }
@@ -33,6 +49,26 @@ ul.no-bullets {
 }
 
 @font-face {
-  font-family: 'MyFont';
-  src: local('MyFont'), url("./fonts/scoreboard.ttf") format('ttf');
+  font-family: 'FONT';
+  src: url('./fonts/scoreboard.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
+
+.background-blue {
+  background-color: blue;
+  font-size: 25px;
+}
+
+.yellow{
+  color: yellow;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: rgb(127, 211, 0);
+}
+
