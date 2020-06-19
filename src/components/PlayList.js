@@ -13,7 +13,7 @@ function PlayList(props) {
   );
   return (
     <ul className="no-bullets">
-      <div className="element-selector"><li> {listItems}</li></div>
+      <li> {listItems}</li>
     </ul >
   );
 }
