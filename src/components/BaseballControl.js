@@ -20,7 +20,7 @@ class BaseballControl extends React.Component {
         second: false,
         third: false,
         inning: 1,
-        bottomOfInning: true
+        bottomOfInning: false
       },
       plays: [{ name: "play ball", color: "yellow" }]
 
@@ -41,9 +41,9 @@ class BaseballControl extends React.Component {
   }
   gameWinningLogic = () => {
     const game = this.state.game
-    if (game.inning >= 9 && game.score > game.cpuScore) {
+    if (game.inning > 9 && game.score > game.cpuScore) {
       return this.state.plays.push({ name: "game over. You win!", color: "yellow" })
-    } else if (game.inning >= 9 && game.score < game.cpuScore) { return this.state.plays.push({ name: "game over. You lose :(", color: "yellow" }) }
+    } else if (game.inning > 9 && game.score < game.cpuScore) { return this.state.plays.push({ name: "game over. You lose :(", color: "yellow" }) }
     else { return game }
   }
 
@@ -53,15 +53,37 @@ class BaseballControl extends React.Component {
       return this.state.plays.push({ name: "game over. You win!", color: "yellow" })
     } else if (game.inning >= 9 && game.score < game.cpuScore) { return game }
   }
-
+  walkOffLogic = () => {
+    const game = this.state.game
+    if (game.bottomOfInning === true && game.inning >= 9 && game.score > game.cpuScore) { return this.state.plays.push({ name: '"It\'s a walk off!" You win!', color: "yellow" }, { name: "Cpu: " + game.cpuScore + " Player1: " + game.score, color: "yellow" }); }
+    else { return game }
+  }
 
   changeInningLogic = () => {
     const game = this.state.game
     if (game.outs === 3 && game.bottomOfInning === false) {
-      game.bottomOfInning = true; game.outs = 0; game.first = false; game.second = false; game.third = false; game.strikes = 0; game.balls = 0; this.state.plays.push({ name: "top of inning number " + game.inning + " ends.", color: "yellow" }, { name: "Cpu: " + game.cpuScore + " Player1: " + game.score, color: "yellow" }); this.topInningGameWinningLogic();
+      game.bottomOfInning = true;
+      game.outs = 0;
+      game.first = false;
+      game.second = false;
+      game.third = false;
+      game.strikes = 0;
+      game.balls = 0;
+      this.playListShow("top");
+      this.playListShow("score");
+      this.topInningGameWinningLogic();
     }
     else if (game.outs === 3 && game.bottomOfInning === true) {
-      game.bottomOfInning = false; game.inning = game.inning + 1; game.strikes = 0; game.balls = 0; game.first = false; game.second = false; game.third = false; game.outs = 0; this.state.plays.push({ name: "bottom of inning number " + (game.inning - 1) + " ends.", color: "yellow" }, { name: "Cpu: " + game.cpuScore + " Player1: " + game.score, color: "yellow" }); this.gameWinningLogic();
+      game.bottomOfInning = false;
+      game.inning = game.inning + 1;
+      game.strikes = 0; game.balls = 0;
+      game.first = false;
+      game.second = false;
+      game.third = false;
+      game.outs = 0;
+      this.playListShow("bottom")
+      this.playListShow("score");
+      this.gameWinningLogic();
     } else { return game }
   }
 
@@ -76,6 +98,11 @@ class BaseballControl extends React.Component {
 
     //let result1 = { name: "Cpu: " + cpu + " Player1: " + score, color: "yellow" }
     //let result2 = {}
+    if (input === "bottom") { play = { name: "bottom of inning number " + (this.state.game.inning - 1) + " ends.", color: "yellow" } }
+    if (input === "top") { play = { name: "top of inning number " + this.state.game.inning + " ends.", color: "yellow" } }
+
+    if (input === "score") { play = { name: "Cpu: " + this.state.game.cpuScore + " Player1: " + this.state.game.score, color: "yellow" } }
+
     if (input === "groundout") { play = { name: "groundout", color: "red" } }
     if (input === "strike") { play = { name: "strike", color: "red" } }
     if (input === "cpuScores+2") { play = { name: "cpu_score+2", color: "orange" } }
@@ -84,43 +111,11 @@ class BaseballControl extends React.Component {
     this.state.plays.push(play)
   }
 
-
-
-  // if (game.outs === 3 && game.inning === 9 && game.bottomOfInning === false) {
-  //   if (game.score > game.cpuScore) { this.state.plays.push({ name: "game over. You win!", color: "yellow" }) }
-  //   else { game.outs = 0; game.bottomOfInning = true; game.first = false; game.second = false; game.third = false; game.strikes = 0; game.balls = 0 }
-  // }
-  // else if (game.outs === 3 && game.inning === 9 && game.bottomOfInning === true) {
-  //   if (game.score < game.cpuScore) { this.state.plays.push({ name: "game over. You lose.", color: "yellow" }) }
-  //   else if (game.score > game.cpuScore) {
-  //     this.state.plays.push({ name: "game over. You win!", color: "yellow" })
-  //   }
-  //   else { game.outs = 0; game.bottomOfInning = false; game.first = false; game.second = false; game.third = false; game.strikes = 0; game.balls = 0 }
-
-  // }
-
-  //game-over logic
-  // if (game.bottomOfInning === true && game.inning === 9 && game.outs === 3) { this.state.plays.push({ name: "game over. You win!", color: "yellow" }) }
-  // if (game.outs === 3 && game.bottomOfInning === false) {
-  //   if (game.score > game.cpuScore && game.innning >= 9) { this.state.plays.push({ name: "Cpu: " + game.cpuScore + " Player1: " + game.score, color: "yellow" }, { name: "game over. You Win!", color: "yellow" }) }
-  //   else {
-  //     game.bottomOfInning = true; game.outs = 0; game.first = false; game.second = false; game.third = false; game.strikes = 0; game.balls = 0; this.state.plays.push({ name: "top of inning number " + game.inning + " ends.", color: "yellow" }, { name: "Cpu: " + game.cpuScore + " Player1: " + game.score, color: "yellow" })
-  //   }
-  // } else if (game.outs === 3 && game.bottomOfInning === true) {
-  //   if (game.score > game.cpuScore && game.innning >= 9) { this.state.plays.push({ name: "Cpu: " + game.cpuScore + " Player1: " + game.score, color: "yellow" }, { name: "game over. You Win!", color: "yellow" }) }
-  //   else if (game.score < game.cpuScore && game.innning >= 9) { this.state.plays.push({ name: "Cpu: " + game.cpuScore + " Player1: " + game.score, color: "yellow" }, { name: "game over. You lose.", color: "yellow" }) }
-  //   else {
-  //     game.bottomOfInning = false; game.inning = game.inning + 1; game.strikes = 0; game.balls = 0; game.first = false; game.second = false; game.third = false; game.outs = 0; this.state.plays.push({ name: "bottom of inning number " + (game.inning - 1) + " ends.", color: "yellow" }, { name: "Cpu: " + game.cpuScore + " Player1: " + game.score, color: "yellow" })
-  //   }
-  // } else { }
-  // }
-
-
   gameRoll = (outcome, hitOutcome) => {
     const game = this.state.game
     /// change inning on each roll
     this.changeInningLogic();
-
+    this.walkOffLogic();
     /// 8 dice outcomes
     switch (outcome) {
       //outs
