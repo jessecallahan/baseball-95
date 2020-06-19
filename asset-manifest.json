@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/baseball-95/static/css/main.dce2990a.chunk.css",
-    "main.js": "/baseball-95/static/js/main.90aa9a24.chunk.js",
-    "main.js.map": "/baseball-95/static/js/main.90aa9a24.chunk.js.map",
+    "main.js": "/baseball-95/static/js/main.888c209d.chunk.js",
+    "main.js.map": "/baseball-95/static/js/main.888c209d.chunk.js.map",
     "runtime-main.js": "/baseball-95/static/js/runtime-main.6973e35b.js",
     "runtime-main.js.map": "/baseball-95/static/js/runtime-main.6973e35b.js.map",
     "static/js/2.f9544bd6.chunk.js": "/baseball-95/static/js/2.f9544bd6.chunk.js",
     "static/js/2.f9544bd6.chunk.js.map": "/baseball-95/static/js/2.f9544bd6.chunk.js.map",
     "index.html": "/baseball-95/index.html",
-    "precache-manifest.d94f51d8c3995ac261416cb16d69aa68.js": "/baseball-95/precache-manifest.d94f51d8c3995ac261416cb16d69aa68.js",
+    "precache-manifest.5f95a45b4556f08ea966b4cc7e58f2a0.js": "/baseball-95/precache-manifest.5f95a45b4556f08ea966b4cc7e58f2a0.js",
     "service-worker.js": "/baseball-95/service-worker.js",
     "static/css/main.dce2990a.chunk.css.map": "/baseball-95/static/css/main.dce2990a.chunk.css.map",
     "static/js/2.f9544bd6.chunk.js.LICENSE.txt": "/baseball-95/static/js/2.f9544bd6.chunk.js.LICENSE.txt",
@@ -33,6 +33,6 @@
     "static/js/runtime-main.6973e35b.js",
     "static/js/2.f9544bd6.chunk.js",
     "static/css/main.dce2990a.chunk.css",
-    "static/js/main.90aa9a24.chunk.js"
+    "static/js/main.888c209d.chunk.js"
   ]
 }
