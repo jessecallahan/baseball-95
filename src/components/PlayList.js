@@ -4,6 +4,7 @@ import ListItem from './ListItem'
 
 
 
+
 function PlayList(props) {
   const plays = props.plays;
 
@@ -14,7 +15,7 @@ function PlayList(props) {
   return (
     <ul className="no-bullets">
       <li> {listItems}</li>
-    </ul >
+    </ul>
   );
 }
 

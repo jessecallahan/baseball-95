@@ -33,12 +33,15 @@ class BaseballControl extends React.Component {
   gameDiceFast = () => {
     return this.gameRoll(Math.ceil(Math.random() * 8), Math.ceil(Math.random() * 6))
   }
+
   gameDiceSlow = () => {
     return this.gameRoll(Math.ceil(Math.random() * 8), Math.ceil(Math.random() * 6))
   }
+
   gameDiceCurve = () => {
     return this.gameRoll(Math.ceil(Math.random() * 8), Math.ceil(Math.random() * 6))
   }
+
   gameWinningLogic = () => {
     const game = this.state.game
     if (game.inning > 9 && game.score > game.cpuScore) {
@@ -53,22 +56,28 @@ class BaseballControl extends React.Component {
       return this.state.plays.push({ name: "game over. You win!", color: "yellow" })
     } else if (game.inning >= 9 && game.score < game.cpuScore) { return game }
   }
+
   walkOffLogic = () => {
     const game = this.state.game
     if (game.bottomOfInning === true && game.inning >= 9 && game.score > game.cpuScore) { return this.state.plays.push({ name: '"It\'s a walk off!" You win!', color: "yellow" }, { name: "Cpu: " + game.cpuScore + " Player1: " + game.score, color: "yellow" }); }
     else { return game }
   }
 
+  clearBases = () => {
+    const game = this.state.game
+    game.outs = 0;
+    game.strikes = 0;
+    game.balls = 0;
+    game.first = false;
+    game.second = false;
+    game.third = false;
+  }
+
   changeInningLogic = () => {
     const game = this.state.game
     if (game.outs === 3 && game.bottomOfInning === false) {
       game.bottomOfInning = true;
-      game.outs = 0;
-      game.first = false;
-      game.second = false;
-      game.third = false;
-      game.strikes = 0;
-      game.balls = 0;
+      this.clearBases();
       this.playListShow("top");
       this.playListShow("score");
       this.topInningGameWinningLogic();
@@ -76,16 +85,13 @@ class BaseballControl extends React.Component {
     else if (game.outs === 3 && game.bottomOfInning === true) {
       game.bottomOfInning = false;
       game.inning = game.inning + 1;
-      game.strikes = 0; game.balls = 0;
-      game.first = false;
-      game.second = false;
-      game.third = false;
-      game.outs = 0;
+      this.clearBases();
       this.playListShow("bottom")
       this.playListShow("score");
       this.gameWinningLogic();
     } else { return game }
   }
+
 
 
   playListShow = (input) => {
@@ -243,6 +249,11 @@ class BaseballControl extends React.Component {
     })
   }
 
+  // componentDidUpdate = () => {
+  //   console.log("updated")
+  //   var element = document.querySelector(".element-selector");
+  //   element.scrollIntoView();
+  // }
 
 
   render() {
@@ -259,7 +270,7 @@ class BaseballControl extends React.Component {
             <button onClick={this.gameDiceCurve}>Curveball</button>
             <ScoreBoard game={this.state.game} /></div>
           <div class="div3">
-            <PlayList plays={this.state.plays} />
+            <div className="element-selector"><PlayList plays={this.state.plays} /></div>
           </div>
         </div>
       </React.Fragment >
