@@ -35,7 +35,7 @@ class BaseballControl extends React.Component {
   }
 
   gameDiceFast = () => {
-    return this.gameRoll(8, 6)
+    return this.gameRoll(Math.ceil(Math.random() * 8), Math.ceil(Math.random() * 6))
   }
 
   gameDiceSlow = () => {
