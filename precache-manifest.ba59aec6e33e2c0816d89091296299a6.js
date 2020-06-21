@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "c3754bc7c6a134cc5344066d998961c9",
+    "revision": "1eb4080537dabb626ef658d408c1af70",
     "url": "/baseball-95/index.html"
   },
   {
-    "revision": "4943dd064fb808aba8b0",
-    "url": "/baseball-95/static/css/main.42a9cc12.chunk.css"
+    "revision": "c0fd48d50d21725ab6dc",
+    "url": "/baseball-95/static/css/main.0a9f197b.chunk.css"
   },
   {
     "revision": "a939680574ed81dde473",
@@ -16,7 +16,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/baseball-95/static/js/2.4a957efc.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "4943dd064fb808aba8b0",
+    "revision": "c0fd48d50d21725ab6dc",
     "url": "/baseball-95/static/js/main.904ae619.chunk.js"
   },
   {
@@ -50,10 +50,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "1c166c5805686c3445566ec060f0d27e",
     "url": "/baseball-95/static/media/3.1c166c58.jpg"
-  },
-  {
-    "revision": "bdfb487e74fe38f834ad998c5e47fff4",
-    "url": "/baseball-95/static/media/TV_EVEN.bdfb487e.jpg"
   },
   {
     "revision": "3fcc313af0fd458c1712a537217e24ae",

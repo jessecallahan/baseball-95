@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/baseball-95/precache-manifest.cb01da9fecbeea2a7c49dd49e8f3f619.js"
+  "/baseball-95/precache-manifest.ba59aec6e33e2c0816d89091296299a6.js"
 );
 
 self.addEventListener('message', (event) => {
