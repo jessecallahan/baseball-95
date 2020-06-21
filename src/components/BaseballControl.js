@@ -23,7 +23,7 @@ class BaseballControl extends React.Component {
         second: false,
         third: false,
         inning: 1,
-        bottomOfInning: false
+        bottomOfInning: true
       },
       plays: [{ name: "play ball", color: "yellow" }],
       endOfGame: false

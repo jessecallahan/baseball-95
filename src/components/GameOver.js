@@ -1,5 +1,6 @@
 import React from 'react'
 import GameOverPic from '../assets/gameoverpic.jpg'
+import GameOverPic1 from '../assets/game-over1.png'
 
 function GameOver(props) {
   const game = props.game
@@ -14,7 +15,7 @@ function GameOver(props) {
     return (
       <div>
         <p>Game over. you lost :(</p>
-        <p><img src={GameOverPic} alt="screen with sunset"></img></p>
+        <p><img src={GameOverPic1} alt="screen with sunset"></img></p>
       </div>
     )
   }
