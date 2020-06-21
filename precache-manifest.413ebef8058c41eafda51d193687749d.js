@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2897b5368e0c508777055b1aa625aff7",
+    "revision": "ca5c51b475eb039ec054a5e201356244",
     "url": "/baseball-95/index.html"
   },
   {
-    "revision": "c5604327d528a6d6fdbb",
-    "url": "/baseball-95/static/css/main.dce2990a.chunk.css"
+    "revision": "8b89bacb324ddd46d5c4",
+    "url": "/baseball-95/static/css/main.86fcc136.chunk.css"
   },
   {
-    "revision": "c99564a00458fd402c7f",
-    "url": "/baseball-95/static/js/2.f9544bd6.chunk.js"
+    "revision": "37f51a94996de0af695f",
+    "url": "/baseball-95/static/js/2.844d0221.chunk.js"
   },
   {
     "revision": "e88a3e95b5364d46e95b35ae8c0dc27d",
-    "url": "/baseball-95/static/js/2.f9544bd6.chunk.js.LICENSE.txt"
+    "url": "/baseball-95/static/js/2.844d0221.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "c5604327d528a6d6fdbb",
-    "url": "/baseball-95/static/js/main.888c209d.chunk.js"
+    "revision": "8b89bacb324ddd46d5c4",
+    "url": "/baseball-95/static/js/main.bec648ae.chunk.js"
   },
   {
     "revision": "9c70b1c53b6b7b684e64",
@@ -56,6 +56,18 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/baseball-95/static/media/baseball_diamond_solid_page.3fcc313a.jpg"
   },
   {
+    "revision": "1629b3149be51f90cea63671ca56e444",
+    "url": "/baseball-95/static/media/curveball.1629b314.jpg"
+  },
+  {
+    "revision": "2fd683a0463b1eea1fde3e751b2156e0",
+    "url": "/baseball-95/static/media/fastball.2fd683a0.jpg"
+  },
+  {
+    "revision": "a4d2df7e0c0bbf0082bb1300b3d7f187",
+    "url": "/baseball-95/static/media/gameoverpic.a4d2df7e.jpg"
+  },
+  {
     "revision": "daeff423a35c3067fb615ed881ba1ced",
     "url": "/baseball-95/static/media/h1.daeff423.jpg"
   },
@@ -86,5 +98,9 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "3bf213e84543613d9294a6c4e4360e6e",
     "url": "/baseball-95/static/media/scoreboard.3bf213e8.ttf"
+  },
+  {
+    "revision": "8b7213e11a153923d64d3fe5b1fec65a",
+    "url": "/baseball-95/static/media/slowball.8b7213e1.jpg"
   }
 ]);
