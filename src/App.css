@@ -7,22 +7,30 @@ body {
   color: white
 }
 
-img{
-  max-width: 100%;
-  max-height: 100%;
-  width: 500px;
-  height: 300px;
-  display: block; /* remove extra space below image */
-}
 
+button {
+  margin: none;
+  border: none;
+  padding: none;
+  background: none;
+  width: 180px;
+  height: 50px;
+  color: black;
+}
+img {
+  max-width: 100%;
+    max-height: 100%;
+    width: 500px;
+    height: 300px;
+    display: block; /* remove extra space below image */
+}
 .parent {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 80px 1fr;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
-
-  }
+}
   
   .div1 { grid-area: 1 / 1 / 2 / 3; overflow: hidden; }
   .div2 { grid-area: 2 / 1 / 3 / 2;}
@@ -30,34 +38,13 @@ img{
 
    height: 500px;
    overflow: auto;
+   position: relative;
   }
+
+  
   
 
-
-
-  /* .App-header  { 
-    grid-area: 1 / 1 / 2 / 3; 
-    background-color: #282c34;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-  };
-
-  .left-side { 
-    grid-area: 2 / 1 / 3 / 2; 
- color: white
-  };
   
-  .right-side { 
-    grid-area: 2 / 2 / 3 / 3; 
-  overflow: auto;
-  }; */
-
-
-
 
 .background-blue {
   background-color: blue;

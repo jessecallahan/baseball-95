@@ -2,7 +2,10 @@ import React from "react";
 import ScoreBoard from "./ScoreBoard";
 import PlayList from "./PlayList"
 import Header from './Header'
-
+import GameOver from './GameOver'
+import FastballButton from '../assets/fastball.jpg'
+import CurveballButton from '../assets/curveball.jpg'
+import SlowballButton from '../assets/slowball.jpg'
 
 
 class BaseballControl extends React.Component {
@@ -18,11 +21,12 @@ class BaseballControl extends React.Component {
         cpuScore: 0,
         first: false,
         second: false,
-        third: false,
-        inning: 1,
+        third: true,
+        inning: 8,
         bottomOfInning: false
       },
-      plays: [{ name: "play ball", color: "yellow" }]
+      plays: [{ name: "play ball", color: "yellow" }],
+      endOfGame: false
 
     };
     this.gameDiceFast = this.gameDiceFast.bind(this)
@@ -31,7 +35,7 @@ class BaseballControl extends React.Component {
   }
 
   gameDiceFast = () => {
-    return this.gameRoll(Math.ceil(Math.random() * 8), Math.ceil(Math.random() * 6))
+    return this.gameRoll(8, 6)
   }
 
   gameDiceSlow = () => {
@@ -45,32 +49,35 @@ class BaseballControl extends React.Component {
   gameWinningLogic = () => {
     const game = this.state.game
     if (game.inning > 9 && game.score > game.cpuScore) {
-      return this.state.plays.push({ name: "game over. You win!", color: "yellow" })
-    } else if (game.inning > 9 && game.score < game.cpuScore) { return this.state.plays.push({ name: "game over. You lose :(", color: "yellow" }) }
+      this.state.plays.unshift({ name: "game over. You win!", color: "yellow" });
+      this.setState({ endOfGame: true });
+    } else if (game.inning > 9 && game.score < game.cpuScore) {
+      this.state.plays.unshift({ name: "game over. You lose :(", color: "yellow" });
+      this.setState({ endOfGame: true });
+    }
     else { return game }
   }
 
   topInningGameWinningLogic = () => {
     const game = this.state.game
     if (game.inning >= 9 && game.score > game.cpuScore) {
-      return this.state.plays.push({ name: "game over. You win!", color: "yellow" })
+      this.state.plays.unshift({ name: "game over. You win!", color: "yellow" });
+      this.setState({ endOfGame: true });
     } else if (game.inning >= 9 && game.score < game.cpuScore) { return game }
   }
 
   walkOffLogic = () => {
     const game = this.state.game
-    if (game.bottomOfInning === true && game.inning >= 9 && game.score > game.cpuScore) { return this.state.plays.push({ name: '"It\'s a walk off!" You win!', color: "yellow" }, { name: "Cpu: " + game.cpuScore + " Player1: " + game.score, color: "yellow" }); }
+    if (game.bottomOfInning === true && game.inning >= 9 && game.score > game.cpuScore) {
+      this.state.plays.unshift({ name: '"It\'s a walk off!" You win!', color: "yellow" });
+      this.playListShow("score");
+      this.setState({ endOfGame: true });
+    }
     else { return game }
   }
 
   clearBases = () => {
-    const game = this.state.game
-    game.outs = 0;
-    game.strikes = 0;
-    game.balls = 0;
-    game.first = false;
-    game.second = false;
-    game.third = false;
+    const game = this.state.game; game.outs = 0; game.strikes = 0; game.balls = 0; game.first = false; game.second = false; game.third = false;
   }
 
   changeInningLogic = () => {
@@ -92,8 +99,6 @@ class BaseballControl extends React.Component {
     } else { return game }
   }
 
-
-
   playListShow = (input) => {
     let play;
     //take in game.score and game.cpuscore as an arguement
@@ -113,8 +118,8 @@ class BaseballControl extends React.Component {
     if (input === "strike") { play = { name: "strike", color: "red" } }
     if (input === "cpuScores+2") { play = { name: "cpu_score+2", color: "orange" } }
 
-    //this.state.plays.push(result the right choice)
-    this.state.plays.push(play)
+    //this.state.plays.unshift(result the right choice)
+    this.state.plays.unshift(play)
   }
 
   gameRoll = (outcome, hitOutcome) => {
@@ -132,7 +137,7 @@ class BaseballControl extends React.Component {
         game.balls = 0;
         break;
       case 2:
-        this.state.plays.push({ name: "groundout", color: "red" })
+        this.state.plays.unshift({ name: "groundout", color: "red" })
         game.outs++;
         game.strikes = 0;
         game.balls = 0;
@@ -145,7 +150,7 @@ class BaseballControl extends React.Component {
         this.playListShow("strike");
         game.strikes++
         if (game.strikes === 3) {
-          this.state.plays.push({ name: "strikeout", color: "red" })
+          this.state.plays.unshift({ name: "strikeout", color: "red" })
           game.outs++;
           game.strikes = 0;
           game.balls = 0;
@@ -155,12 +160,12 @@ class BaseballControl extends React.Component {
       //ball
       case 6:
       case 7:
-        this.state.plays.push({ name: "ball", color: "yellow" })
+        this.state.plays.unshift({ name: "ball", color: "yellow" })
         game.balls++
         if (game.balls === 4) {
-          this.state.plays.push({ name: "Walk", color: "green" });
+          this.state.plays.unshift({ name: "Walk", color: "green" });
           if (game.first === true && game.second === true && game.third === true) {
-            if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1; this.playListShow("cpuScore+1"); } else { game.score = game.score + 1; this.state.plays.push({ name: "WALKEDINARUNscore+1", color: "orange" }) } game.first = true;
+            if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1; this.playListShow("cpuScore+1"); } else { game.score = game.score + 1; this.state.plays.unshift({ name: "WALKEDINARUNscore+1", color: "orange" }) } game.first = true;
             game.second = true; game.third = true; game.balls = 0; game.strikes = 0;
           }
           else if (game.first === true) {
@@ -179,14 +184,15 @@ class BaseballControl extends React.Component {
           //single
           case 1:
           case 2:
-            this.state.plays.push({ name: "single", color: "green" })
-            if (game.first === true && game.second === true && game.third === true) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 2; this.state.plays.push({ name: "cpu_score+2", color: "orange" }) } else { game.score = game.score + 2; this.state.plays.push({ name: "score+2", color: "orange" }) } game.first = true; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
-            else if (game.second === true && game.third === true && game.first === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 2; this.state.plays.push({ name: "cpu_score+2", color: "orange" }) } else { game.score = game.score + 2; this.state.plays.push({ name: "score+2", color: "orange" }) } game.first = true; game.second = false; game.third = false; game.balls = 0; game.strikes = 0 }
-            else if (game.first === true && game.second === true && game.third === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1; this.state.plays.push({ name: "cpu_score+1", color: "orange" }) } else { game.score = game.score + 1; this.state.plays.push({ name: "score+1", color: "orange" }) } game.first = true; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
-            else if (game.first === true && game.third === true && game.second === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1; this.state.plays.push({ name: "cpu_score+1", color: "orange" }) } else { game.score = game.score + 1; this.state.plays.push({ name: "score+1", color: "orange" }) } game.first = true; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
+            console.log(game)
+            this.state.plays.unshift({ name: "single", color: "green" })
+            if (game.first === true && game.second === true && game.third === true) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 2; this.state.plays.unshift({ name: "cpu_score+2", color: "orange" }) } else { game.score = game.score + 2; this.state.plays.unshift({ name: "score+2", color: "orange" }) } game.first = true; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
+            else if (game.second === true && game.third === true && game.first === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 2; this.state.plays.unshift({ name: "cpu_score+2", color: "orange" }) } else { game.score = game.score + 2; this.state.plays.unshift({ name: "score+2", color: "orange" }) } game.first = true; game.second = false; game.third = false; game.balls = 0; game.strikes = 0 }
+            else if (game.first === true && game.second === true && game.third === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1; this.state.plays.unshift({ name: "cpu_score+1", color: "orange" }) } else { game.score = game.score + 1; this.state.plays.unshift({ name: "score+1", color: "orange" }) } game.first = true; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
+            else if (game.first === true && game.third === true && game.second === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1; this.state.plays.unshift({ name: "cpu_score+1", color: "orange" }) } else { game.score = game.score + 1; this.state.plays.unshift({ name: "score+1", color: "orange" }) } game.first = true; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
             else if (game.first === true && game.second === false && game.third === false) { game.first = true; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
-            else if (game.second === true && game.first === false && game.third === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1; this.state.plays.push({ name: "cpu_score+1", color: "orange" }) } else { game.score = game.score + 1; this.state.plays.push({ name: "score+1", color: "orange" }) } game.first = true; game.second = false; game.third = false; game.balls = 0; game.strikes = 0 }
-            else if (game.third === true && game.second === false && game.third === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1; this.state.plays.push({ name: "cpu_score+1", color: "orange" }) } else { game.score = game.score + 1; this.state.plays.push({ name: "score+1", color: "orange" }) } game.first = true; game.second = false; game.third = false; game.balls = 0; game.strikes = 0 }
+            else if (game.third === true && game.second === false && game.first === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1; this.state.plays.unshift({ name: "cpu_score+1", color: "orange" }) } else { game.score = game.score + 1; this.state.plays.unshift({ name: "score+1", color: "orange" }) } game.first = true; game.second = false; game.third = false; game.balls = 0; game.strikes = 0 }
+            else if (game.second === true && game.first === false && game.third === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1; this.state.plays.unshift({ name: "cpu_score+1", color: "orange" }) } else { game.score = game.score + 1; this.state.plays.unshift({ name: "score+1", color: "orange" }) } game.first = true; game.second = false; game.third = false; game.balls = 0; game.strikes = 0 }
             else if (game.first === true && game.second === false && game.third === false) { game.first = true; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
             else { game.first = true; game.balls = 0; game.strikes = 0 }
             break;
@@ -194,44 +200,44 @@ class BaseballControl extends React.Component {
           //double
           case 3:
           case 4:
-            this.state.plays.push({ name: "double", color: "green" })
-            if (game.first === true && game.second === true && game.third === true) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 2; this.state.plays.push({ name: "cpu_score+2", color: "orange" }) } else { game.score = game.score + 2; this.state.plays.push({ name: "score+2", color: "orange" }) } game.first = false; game.second = true; game.third = true; game.balls = 0; game.strikes = 0 }
-            else if (game.second === true && game.third === true && game.first === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 2; this.state.plays.push({ name: "cpu_score+2", color: "orange" }) } else { game.score = game.score + 2; this.state.plays.push({ name: "score+2", color: "orange" }) } game.first = false; game.second = true; game.third = false; game.balls = 0; game.strikes = 0 }
-            else if (game.first === true && game.second === true && game.third === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1; this.state.plays.push({ name: "cpu_score+1", color: "orange" }) } else { game.score = game.score + 1; this.state.plays.push({ name: "score+1", color: "orange" }) } game.first = false; game.second = true; game.third = true; game.balls = 0; game.strikes = 0 }
-            else if (game.first === true && game.third === true && game.second === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1; this.state.plays.push({ name: "cpu_score+1", color: "orange" }) } else { game.score = game.score + 1; this.state.plays.push({ name: "score+1", color: "orange" }) } game.first = false; game.second = true; game.third = true; game.balls = 0; game.strikes = 0 }
+            this.state.plays.unshift({ name: "double", color: "green" })
+            if (game.first === true && game.second === true && game.third === true) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 2; this.state.plays.unshift({ name: "cpu_score+2", color: "orange" }) } else { game.score = game.score + 2; this.state.plays.unshift({ name: "score+2", color: "orange" }) } game.first = false; game.second = true; game.third = true; game.balls = 0; game.strikes = 0 }
+            else if (game.second === true && game.third === true && game.first === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 2; this.state.plays.unshift({ name: "cpu_score+2", color: "orange" }) } else { game.score = game.score + 2; this.state.plays.unshift({ name: "score+2", color: "orange" }) } game.first = false; game.second = true; game.third = false; game.balls = 0; game.strikes = 0 }
+            else if (game.first === true && game.second === true && game.third === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1; this.state.plays.unshift({ name: "cpu_score+1", color: "orange" }) } else { game.score = game.score + 1; this.state.plays.unshift({ name: "score+1", color: "orange" }) } game.first = false; game.second = true; game.third = true; game.balls = 0; game.strikes = 0 }
+            else if (game.first === true && game.third === true && game.second === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1; this.state.plays.unshift({ name: "cpu_score+1", color: "orange" }) } else { game.score = game.score + 1; this.state.plays.unshift({ name: "score+1", color: "orange" }) } game.first = false; game.second = true; game.third = true; game.balls = 0; game.strikes = 0 }
             else if (game.first === true && game.second === false && game.third === false) { game.first = false; game.second = true; game.third = true; game.balls = 0; game.strikes = 0 }
-            else if (game.second === true && game.first === false && game.third === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1; this.state.plays.push({ name: "cpu_score+1", color: "orange" }) } else { game.score = game.score + 1; this.state.plays.push({ name: "score+1", color: "orange" }) } game.first = false; game.second = true; game.third = false; game.balls = 0; game.strikes = 0 }
-            else if (game.third === true && game.second === false && game.first === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1; this.state.plays.push({ name: "cpu_score+1", color: "orange" }) } else { game.score = game.score + 1; this.state.plays.push({ name: "score+1", color: "orange" }) } game.first = false; game.second = true; game.third = false; game.balls = 0; game.strikes = 0 }
+            else if (game.second === true && game.first === false && game.third === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1; this.state.plays.unshift({ name: "cpu_score+1", color: "orange" }) } else { game.score = game.score + 1; this.state.plays.unshift({ name: "score+1", color: "orange" }) } game.first = false; game.second = true; game.third = false; game.balls = 0; game.strikes = 0 }
+            else if (game.third === true && game.second === false && game.first === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1; this.state.plays.unshift({ name: "cpu_score+1", color: "orange" }) } else { game.score = game.score + 1; this.state.plays.unshift({ name: "score+1", color: "orange" }) } game.first = false; game.second = true; game.third = false; game.balls = 0; game.strikes = 0 }
             else if (game.first === true && game.second === false && game.third === false) { game.first = false; game.second = true; game.third = true; game.balls = 0; game.strikes = 0 }
             else { game.second = true; game.balls = 0; game.strikes = 0 }
             break;
 
           //triple
           case 5:
-            this.state.plays.push({ name: "triple", color: "green" })
-            if (game.first === true && game.second === true && game.third === true) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 3; this.state.plays.push({ name: "cpu_score+3", color: "orange" }) } else { game.score = game.score + 3; this.state.plays.push({ name: "score+3", color: "orange" }) } game.first = false; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
-            else if (game.second === true && game.third === true && game.first === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 2; this.state.plays.push({ name: "cpu_score+2", color: "orange" }) } else { game.score = game.score + 2; this.state.plays.push({ name: "score+2", color: "orange" }) } game.first = false; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
-            else if (game.first === true && game.second === true && game.third === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 2; this.state.plays.push({ name: "cpu_score+2", color: "orange" }) } else { game.score = game.score + 2; this.state.plays.push({ name: "score+2", color: "orange" }) } game.first = false; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
-            else if (game.first === true && game.third === true && game.second === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 2; this.state.plays.push({ name: "cpu_score+2", color: "orange" }) } else { game.score = game.score + 2; this.state.plays.push({ name: "score+2", color: "orange" }) } game.first = false; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
+            this.state.plays.unshift({ name: "triple", color: "green" })
+            if (game.first === true && game.second === true && game.third === true) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 3; this.state.plays.unshift({ name: "cpu_score+3", color: "orange" }) } else { game.score = game.score + 3; this.state.plays.unshift({ name: "score+3", color: "orange" }) } game.first = false; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
+            else if (game.second === true && game.third === true && game.first === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 2; this.state.plays.unshift({ name: "cpu_score+2", color: "orange" }) } else { game.score = game.score + 2; this.state.plays.unshift({ name: "score+2", color: "orange" }) } game.first = false; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
+            else if (game.first === true && game.second === true && game.third === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 2; this.state.plays.unshift({ name: "cpu_score+2", color: "orange" }) } else { game.score = game.score + 2; this.state.plays.unshift({ name: "score+2", color: "orange" }) } game.first = false; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
+            else if (game.first === true && game.third === true && game.second === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 2; this.state.plays.unshift({ name: "cpu_score+2", color: "orange" }) } else { game.score = game.score + 2; this.state.plays.unshift({ name: "score+2", color: "orange" }) } game.first = false; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
             else if (game.first === true && game.second === false && game.third === false) { game.first = false; game.second = false; game.third = true; game.score = game.score + 1; game.balls = 0; game.strikes = 0 }
-            else if (game.second === true && game.first === false && game.third === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1; this.state.plays.push({ name: "cpu_score+1", color: "orange" }) } else { game.score = game.score + 1; this.state.plays.push({ name: "score+1", color: "orange" }) } game.first = false; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
-            else if (game.third === true && game.second === false && game.first === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1; this.state.plays.push({ name: "cpu_score+1", color: "orange" }) } else { game.score = game.score + 1; this.state.plays.push({ name: "score+1", color: "orange" }) } game.first = false; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
-            else if (game.first === true && game.second === false && game.third === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1; this.state.plays.push({ name: "cpu_score+1", color: "orange" }) } else { game.score = game.score + 1; this.state.plays.push({ name: "score+1", color: "orange" }) } game.first = false; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
+            else if (game.second === true && game.first === false && game.third === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1; this.state.plays.unshift({ name: "cpu_score+1", color: "orange" }) } else { game.score = game.score + 1; this.state.plays.unshift({ name: "score+1", color: "orange" }) } game.first = false; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
+            else if (game.third === true && game.second === false && game.first === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1; this.state.plays.unshift({ name: "cpu_score+1", color: "orange" }) } else { game.score = game.score + 1; this.state.plays.unshift({ name: "score+1", color: "orange" }) } game.first = false; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
+            else if (game.first === true && game.second === false && game.third === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1; this.state.plays.unshift({ name: "cpu_score+1", color: "orange" }) } else { game.score = game.score + 1; this.state.plays.unshift({ name: "score+1", color: "orange" }) } game.first = false; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
             else { game.third = true; game.balls = 0; game.strikes = 0 }
             break;
 
           //homerun
           case 6:
-            this.state.plays.push({ name: "HOMERUN", color: "green" })
-            if (game.first === true && game.second === true && game.third === true) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 4; this.state.plays.push({ name: "cpu_score+4", color: "orange" }) } else { game.score = game.score + 4; this.state.plays.push({ name: "GRANDSLAM!!!+4", color: "orange" }) } game.first = false; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
-            else if (game.second === true && game.third === true && game.first === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 3; this.state.plays.push({ name: "cpu_score+3", color: "orange" }) } else { game.score = game.score + 3; this.state.plays.push({ name: "score+3", color: "orange" }) } game.first = false; game.second = false; game.third = false; game.balls = 0; game.strikes = 0 }
-            else if (game.first === true && game.second === true && game.third === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 3; this.state.plays.push({ name: "cpu_score+3", color: "orange" }) } else { game.score = game.score + 3; this.state.plays.push({ name: "score+3", color: "orange" }) } game.first = false; game.second = false; game.third = false; game.balls = 0; game.strikes = 0 }
-            else if (game.first === true && game.third === true && game.second === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 3; this.state.plays.push({ name: "cpu_score+3", color: "orange" }) } else { game.score = game.score + 3; this.state.plays.push({ name: "score+3", color: "orange" }) } game.first = false; game.second = false; game.third = false; game.balls = 0; game.strikes = 0 }
-            else if (game.first === true && game.second === false && game.third === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 2; this.state.plays.push({ name: "cpu_score+2", color: "orange" }) } else { game.score = game.score + 2; this.state.plays.push({ name: "score+2", color: "orange" }) } game.first = false; game.second = false; game.third = false; game.balls = 0; game.strikes = 0 }
-            else if (game.second === true && game.first === false && game.third === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 2; this.state.plays.push({ name: "cpu_score+2", color: "orange" }) } else { game.score = game.score + 2; this.state.plays.push({ name: "score+2", color: "orange" }) } game.first = false; game.second = false; game.third = false; game.balls = 0; game.strikes = 0 }
-            else if (game.third === true && game.second === false && game.first === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 2; this.state.plays.push({ name: "cpu_score+2", color: "orange" }) } else { game.score = game.score + 2; this.state.plays.push({ name: "score+2", color: "orange" }) } game.first = false; game.second = false; game.third = false; game.balls = 0; game.strikes = 0 }
+            this.state.plays.unshift({ name: "HOMERUN", color: "green" })
+            if (game.first === true && game.second === true && game.third === true) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 4; this.state.plays.unshift({ name: "cpu_score+4", color: "orange" }) } else { game.score = game.score + 4; this.state.plays.unshift({ name: "GRANDSLAM!!!+4", color: "orange" }) } game.first = false; game.second = false; game.third = true; game.balls = 0; game.strikes = 0 }
+            else if (game.second === true && game.third === true && game.first === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 3; this.state.plays.unshift({ name: "cpu_score+3", color: "orange" }) } else { game.score = game.score + 3; this.state.plays.unshift({ name: "score+3", color: "orange" }) } game.first = false; game.second = false; game.third = false; game.balls = 0; game.strikes = 0 }
+            else if (game.first === true && game.second === true && game.third === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 3; this.state.plays.unshift({ name: "cpu_score+3", color: "orange" }) } else { game.score = game.score + 3; this.state.plays.unshift({ name: "score+3", color: "orange" }) } game.first = false; game.second = false; game.third = false; game.balls = 0; game.strikes = 0 }
+            else if (game.first === true && game.third === true && game.second === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 3; this.state.plays.unshift({ name: "cpu_score+3", color: "orange" }) } else { game.score = game.score + 3; this.state.plays.unshift({ name: "score+3", color: "orange" }) } game.first = false; game.second = false; game.third = false; game.balls = 0; game.strikes = 0 }
+            else if (game.first === true && game.second === false && game.third === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 2; this.state.plays.unshift({ name: "cpu_score+2", color: "orange" }) } else { game.score = game.score + 2; this.state.plays.unshift({ name: "score+2", color: "orange" }) } game.first = false; game.second = false; game.third = false; game.balls = 0; game.strikes = 0 }
+            else if (game.second === true && game.first === false && game.third === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 2; this.state.plays.unshift({ name: "cpu_score+2", color: "orange" }) } else { game.score = game.score + 2; this.state.plays.unshift({ name: "score+2", color: "orange" }) } game.first = false; game.second = false; game.third = false; game.balls = 0; game.strikes = 0 }
+            else if (game.third === true && game.second === false && game.first === false) { if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 2; this.state.plays.unshift({ name: "cpu_score+2", color: "orange" }) } else { game.score = game.score + 2; this.state.plays.unshift({ name: "score+2", color: "orange" }) } game.first = false; game.second = false; game.third = false; game.balls = 0; game.strikes = 0 }
             else {
-              if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1; this.state.plays.push({ name: "cpu_score+1", color: "orange" }) } else { game.score = game.score + 1; this.state.plays.push({ name: "score+1", color: "orange" }) } game.balls = 0; game.strikes = 0
+              if (game.bottomOfInning === false) { game.cpuScore = game.cpuScore + 1; this.state.plays.unshift({ name: "cpu_score+1", color: "orange" }) } else { game.score = game.score + 1; this.state.plays.unshift({ name: "score+1", color: "orange" }) } game.balls = 0; game.strikes = 0
             }
             break;
           default:
@@ -243,38 +249,44 @@ class BaseballControl extends React.Component {
       default:
     }
 
-
     this.setState({
       game: game
     })
   }
 
-  // componentDidUpdate = () => {
-  //   console.log("updated")
-  //   var element = document.querySelector(".element-selector");
-  //   element.scrollIntoView();
-  // }
 
 
   render() {
-    return (
-      <React.Fragment>
 
-        <div class="parent">
+    if (this.state.endOfGame === true) {
+      return (
+        <div className="parent">
           <div className="div1">
             <Header />
           </div>
-          <div class="div2">
-            <button onClick={this.gameDiceFast}>Fastball!</button>
-            <button onClick={this.gameDiceSlow}>Slowball</button>
-            <button onClick={this.gameDiceCurve}>Curveball</button>
+          <div className="div2">
+            <GameOver game={this.state.game}></GameOver> </div>
+          <div className="div3">
+            <PlayList plays={this.state.plays} />
+          </div>
+        </div>)
+    } else {
+      return (
+        <div className="parent">
+          <div className="div1">
+            <Header />
+          </div>
+          <div className="div2">
+            <button><img src={FastballButton} alt="fastball" onClick={this.gameDiceFast} /></button>
+            <button><img src={SlowballButton} alt="slowball" onClick={this.gameDiceSlow} /></button>
+            <button><img src={CurveballButton} alt="curveball" onClick={this.gameDiceCurve} /></button>
             <ScoreBoard game={this.state.game} /></div>
-          <div class="div3">
-            <div className="element-selector"><PlayList plays={this.state.plays} /></div>
+          <div className="div3">
+            <PlayList plays={this.state.plays} />
           </div>
         </div>
-      </React.Fragment >
-    );
+      );
+    }
   }
 
 }

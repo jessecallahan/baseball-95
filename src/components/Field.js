@@ -18,6 +18,7 @@ import hFieldPic13 from "../assets/h13.jpg"
 
 function Field(props) {
   const { game } = props;
+
   if (game.bottomOfInning === false) {
     if (game.first === true && game.second === false && game.third === false) {
       return (
@@ -53,7 +54,7 @@ function Field(props) {
       );
     } else {
       return (
-        <img alt="No one on Field" src={FieldPic}></img>
+        <img alt="No one on Field" src={FieldPic} ></ img>
       );
     }
   } else {
@@ -91,10 +92,12 @@ function Field(props) {
       );
     } else {
       return (
-        <img alt="No one on Field" src={FieldPic}></img>
+        <img alt="No one on Field" src={FieldPic} ></img>
       );
     }
+
   }
+
 }
 
 export default Field;

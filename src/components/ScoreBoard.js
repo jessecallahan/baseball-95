@@ -27,7 +27,7 @@ function ScoreBoard(props) {
         3RD:{game.third.toString() + " "}
       </p>
       <p>
-        <Field game={game} />
+        < Field game={game} />
       </p>
     </React.Fragment >
   );

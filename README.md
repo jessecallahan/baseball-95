@@ -1,68 +1,44 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### Jesse Callahan
 
-## Available Scripts
+#### Major League 1995 - A React Baseball Simulator
 
-In the project directory, you can run:
+##### Description
+Major League 1995 - A React Baseball Simulator is a basic and fun web browser game that replicates a baseball game. The feel and look of the game will be that of a classic retro gaming console. 
 
-### `npm start`
+##### Use Case
+Users play the game. They will be Player 1 and will always face a computer. Baseball has a lot of interesting logic that will take some planning to achieve. The game will be loosely based on a dice based game called MLB Showdown. Essentially the user will press a “pitch” button. This button will put a few things in motion: 1) It will trigger a ‘randomizer’ algorithm or ‘roll the dice’ and based on this number it will give the user a few actions: strike, ball, out, hit 2) The program will calculate factors in the game. I.e. whose on base, how many outs there are. 3) There will be a scoreboard to keep track of a “game” object with key values: score, inning number. The purpose/goal of my project is to show off my understanding of JS/React Logic. It will also show a little of my styling skills with the ‘retro’ theme and will be interactive. Interactivity is something I am interested in furthering in my computer programming education. 
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+##### Minimum Viable Product
+(List the absolute minimum features the project requires before it is considered in a pre-alpha state)
+ * Creates a ‘game’ object with two players: one user, one cpu, 9 innings, 3 outs and inning, and a clear score board at 0-0 
+ * The ability to ‘pitch’ the ball with multiple outcomes based on the this ‘dice roll’ algorythm
+ * A text area that shows the actions of the game: ie, basehit to center field, strikeout +1 out, groundout +2 outs, etc. 
+ * The ability to switch innings after 3 outs
+ * The baseball players will be based on real players 
+ * The ability to play a 9 inning game and the logic of a game ending at 9 innings if the score isn’t tied
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
 
-### `npm test`
+##### Tools for MVP
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+ * VisualStudio Code
+ * React 
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+##### Additional Features
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+ * Api - I am going to build my ‘player’ object similar to how this api is based so when I finish with the game logic and can implement: https://appac.github.io/mlb-data-api-docs/
+ * Firebase - a firebase component that allows a user to sign in, load game, see high scores, save game, etc.
+ * React Native - look into React Native to see the possibility of turning this into a app 
+ * React Redux - once my project is complete breaking it down into actions and reducers to show my knowledge
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+##### Tools for Additional Features
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+ * Api 
+ * Firebase
+ * React Native
+ * React Redux
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+##### Additional Information
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+I am currently working on a basketball simulator. The github can be found here  https://github.com/jessecallahan/dream-team . I am kind of looking at these two as a pair. They both have a retro gaming feel and play on ‘90s themes. I am looking at the basketball app as a stepping stone to the slightly more complicated baseball simulator. The purpose of these two projects are really to show my knowledge and interest in JS/React logic. The ability to write non-mutatable handles and make an application that is interactive is an important part of what I would like to show a potential future employer. 
