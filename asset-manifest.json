@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/baseball-95/static/css/main.96fb5766.chunk.css",
-    "main.js": "/baseball-95/static/js/main.2cc73d2b.chunk.js",
-    "main.js.map": "/baseball-95/static/js/main.2cc73d2b.chunk.js.map",
+    "main.css": "/baseball-95/static/css/main.42a9cc12.chunk.css",
+    "main.js": "/baseball-95/static/js/main.904ae619.chunk.js",
+    "main.js.map": "/baseball-95/static/js/main.904ae619.chunk.js.map",
     "runtime-main.js": "/baseball-95/static/js/runtime-main.6973e35b.js",
     "runtime-main.js.map": "/baseball-95/static/js/runtime-main.6973e35b.js.map",
     "static/js/2.4a957efc.chunk.js": "/baseball-95/static/js/2.4a957efc.chunk.js",
     "static/js/2.4a957efc.chunk.js.map": "/baseball-95/static/js/2.4a957efc.chunk.js.map",
     "index.html": "/baseball-95/index.html",
-    "precache-manifest.630bea78d1d9cec52df993e9c782d14d.js": "/baseball-95/precache-manifest.630bea78d1d9cec52df993e9c782d14d.js",
+    "precache-manifest.cb01da9fecbeea2a7c49dd49e8f3f619.js": "/baseball-95/precache-manifest.cb01da9fecbeea2a7c49dd49e8f3f619.js",
     "service-worker.js": "/baseball-95/service-worker.js",
-    "static/css/main.96fb5766.chunk.css.map": "/baseball-95/static/css/main.96fb5766.chunk.css.map",
+    "static/css/main.42a9cc12.chunk.css.map": "/baseball-95/static/css/main.42a9cc12.chunk.css.map",
     "static/js/2.4a957efc.chunk.js.LICENSE.txt": "/baseball-95/static/js/2.4a957efc.chunk.js.LICENSE.txt",
     "static/media/1.jpg": "/baseball-95/static/media/1.85043379.jpg",
     "static/media/12.jpg": "/baseball-95/static/media/12.5c737c7a.jpg",
@@ -19,6 +19,7 @@
     "static/media/2.jpg": "/baseball-95/static/media/2.d9b559a9.jpg",
     "static/media/23.jpg": "/baseball-95/static/media/23.0459af2f.jpg",
     "static/media/3.jpg": "/baseball-95/static/media/3.1c166c58.jpg",
+    "static/media/App.css": "/baseball-95/static/media/scoreboard.3bf213e8.ttf",
     "static/media/baseball_diamond_solid_page.jpg": "/baseball-95/static/media/baseball_diamond_solid_page.3fcc313a.jpg",
     "static/media/curveball.jpg": "/baseball-95/static/media/curveball.1629b314.jpg",
     "static/media/fastball.jpg": "/baseball-95/static/media/fastball.2fd683a0.jpg",
@@ -30,13 +31,12 @@
     "static/media/h2.jpg": "/baseball-95/static/media/h2.64ab3996.jpg",
     "static/media/h23.jpg": "/baseball-95/static/media/h23.e0c7e0fa.jpg",
     "static/media/h3.jpg": "/baseball-95/static/media/h3.18a7cebe.jpg",
-    "static/media/App.css": "/baseball-95/static/media/scoreboard.3bf213e8.ttf",
     "static/media/slowball.jpg": "/baseball-95/static/media/slowball.8b7213e1.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.6973e35b.js",
     "static/js/2.4a957efc.chunk.js",
-    "static/css/main.96fb5766.chunk.css",
-    "static/js/main.2cc73d2b.chunk.js"
+    "static/css/main.42a9cc12.chunk.css",
+    "static/js/main.904ae619.chunk.js"
   ]
 }
