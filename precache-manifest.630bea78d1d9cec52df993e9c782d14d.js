@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2acbc7e3566fabfe41b2215ee67d3dcf",
+    "revision": "e68720b6a1e4ab5008ab6600aa7302b1",
     "url": "/baseball-95/index.html"
   },
   {
-    "revision": "f3f93eb521a77d74039c",
+    "revision": "a6f9489ba5a73d3356fa",
     "url": "/baseball-95/static/css/main.96fb5766.chunk.css"
   },
   {
-    "revision": "37f51a94996de0af695f",
-    "url": "/baseball-95/static/js/2.844d0221.chunk.js"
+    "revision": "a939680574ed81dde473",
+    "url": "/baseball-95/static/js/2.4a957efc.chunk.js"
   },
   {
     "revision": "e88a3e95b5364d46e95b35ae8c0dc27d",
-    "url": "/baseball-95/static/js/2.844d0221.chunk.js.LICENSE.txt"
+    "url": "/baseball-95/static/js/2.4a957efc.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "f3f93eb521a77d74039c",
-    "url": "/baseball-95/static/js/main.18528f0e.chunk.js"
+    "revision": "a6f9489ba5a73d3356fa",
+    "url": "/baseball-95/static/js/main.2cc73d2b.chunk.js"
   },
   {
     "revision": "9c70b1c53b6b7b684e64",
